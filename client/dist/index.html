@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Technical Interview Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="header-logo">Interview Platform</h1>
+      </div>
+      <div class="header-right">
+        <button id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button id="header-login-btn" class="header-btn login-btn" style="display: none;">Login</button>
+        <button id="header-logout-btn" class="header-btn logout-btn" style="display: none;">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-content">
+  <aside class="sidebar">
+    <div class="logo" style="color: var(--text-primary);">Interview</div>
+    <ul>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#start">Start Interview</a></li>
+      <li><a href="#plagiarism">Plagiarism</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+      <li><a href="#suggest-question">Suggest Question</a></li>
+      <li class="admin-link"><a href="#admin-results">Admin Results</a></li>
+      <li class="admin-link"><a href="#admin-add">Add Question</a></li>
+      <li><a href="#" id="logout-btn">Logout</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+
+    <!-- LOGIN PAGE -->
+    <section id="login-page" class="page">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="password" type="password" placeholder="Password" required />
+        <button>Login</button>
+      </form>
+      <p id="login-msg"></p>
+      <a href="#register">Create Account</a>
+      <a href="#forgot-password" style="display: block; margin-top: 10px; color: #2563eb;">Forgot Password?</a>
+    </section>
+
+    <!-- REGISTER PAGE -->
+    <section id="register-page" class="page">
+      <h2>Register</h2>
+      <form id="register-form">
+        <input name="name" type="text" placeholder="Name" required />
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="password" type="password" placeholder="Password" required />
+        <button>Register</button>
+      </form>
+      <p id="register-msg"></p>
+      <a href="#login">Already have account?</a>
+    </section>
+
+    <!-- FORGOT PASSWORD PAGE -->
+    <section id="forgot-password-page" class="page">
+      <h2>Forgot Password</h2>
+      <p style="color: #666; margin-bottom: 15px;">Enter your email address and we'll send you a password reset link.</p>
+      <form id="forgot-password-form">
+        <input name="email" type="email" placeholder="Email" required />
+        <button>Send Reset Link</button>
+      </form>
+      <p id="forgot-password-msg"></p>
+      <div id="reset-token-display" style="display: none; margin-top: 15px; padding: 15px; background: #f0fdf4; border-radius: 8px; border: 1px solid #059669;">
+        <p style="margin: 0; color: #059669; font-weight: bold;">Reset Token (Development Only):</p>
+        <p id="reset-token-text" style="margin: 5px 0; word-break: break-all; font-family: monospace; font-size: 12px;"></p>
+        <p style="margin: 5px 0; font-size: 12px; color: #666;">Copy this token and use it on the Reset Password page.</p>
+      </div>
+      <a href="#login" style="display: block; margin-top: 15px;">Back to Login</a>
+    </section>
+
+    <!-- RESET PASSWORD PAGE -->
+    <section id="reset-password-page" class="page">
+      <h2>Reset Password</h2>
+      <p style="color: #666; margin-bottom: 15px;">Enter your reset token and new password.</p>
+      <form id="reset-password-form">
+        <input name="token" type="text" placeholder="Reset Token" required />
+        <input name="password" type="password" placeholder="New Password" required />
+        <button>Reset Password</button>
+      </form>
+      <p id="reset-password-msg"></p>
+      <a href="#login" style="display: block; margin-top: 15px;">Back to Login</a>
+      <a href="#forgot-password" style="display: block; margin-top: 10px; color: #2563eb;">Get Reset Token</a>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard-page" class="page">
+      <h2>Dashboard</h2>
+      <div id="dashboard-content">
+        <p>Welcome! Use the navigation menu to start an interview or check plagiarism.</p>
+      </div>
+      <div style="margin-top: 30px; padding: 20px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+        <h3 style="margin-top: 0;">Change Password</h3>
+        <form id="change-password-form">
+          <input name="currentPassword" type="password" placeholder="Current Password" required />
+          <input name="newPassword" type="password" placeholder="New Password" required />
+          <button type="submit">Change Password</button>
+        </form>
+        <p id="change-password-msg"></p>
+      </div>
+    </section>
+
+    <!-- START INTERVIEW -->
+    <section id="start-page" class="page">
+      <h2>Start Interview / Test</h2>
+      <p style="color: #666; margin-bottom: 15px;">Select your preferences to start the interview. You can take MCQ tests or descriptive questions.</p>
+      <form id="start-form">
+        <select name="category" required>
+          <option value="">Select Category</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="devops">DevOps</option>
+          <option value="testing">Testing</option>
+          <option value="general">General</option>
+        </select>
+        <select name="difficulty" required>
+          <option value="">Select Difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select name="questionType" id="question-type-filter">
+          <option value="all">All Types (MCQ + Descriptive)</option>
+          <option value="mcq">Only MCQ Questions</option>
+          <option value="descriptive">Only Descriptive Questions</option>
+        </select>
+        <input type="number" name="numQuestions" placeholder="No. of Questions" min="1" required />
+        <input type="text" name="topic" placeholder="Topic (e.g., JavaScript Basics, React MCQ Test)" required />
+        <button>Start Test</button>
+      </form>
+      <div id="start-msg"></div>
+      <div id="questions-box"></div>
+      <div id="answers-section" style="display: none;">
+        <h3>Answer the Questions</h3>
+        <p id="test-instructions" style="color: #666; margin-bottom: 15px;"></p>
+        <div id="answers-container"></div>
+        <button id="submit-all-btn" style="margin-top: 20px;">Submit All Answers</button>
+      </div>
+    </section>
+
+    <!-- SUBMIT ANSWER -->
+    <section id="submit-page" class="page">
+      <h2>Submit Answer</h2>
+      <p>Use the "Start Interview" page to answer questions. This page is for reference only.</p>
+      <div id="submit-msg"></div>
+    </section>
+
+    <!-- PLAGIARISM CHECK -->
+    <section id="plagiarism-page" class="page">
+      <h2>Plagiarism Check</h2>
+      <form id="plagiarism-form">
+        <textarea name="userAnswer" placeholder="Your Answer" required></textarea>
+        <textarea name="aiAnswer" placeholder="AI/Reference Answer" required></textarea>
+        <button>Check</button>
+      </form>
+      <div id="plagiarism-msg"></div>
+    </section>
+
+    <!-- FEEDBACK PAGE -->
+    <section id="feedback-page" class="page">
+      <h2>Send Feedback</h2>
+      <p style="color: #666; margin-bottom: 15px;">We'd love to hear your thoughts! Share your feedback, suggestions, or report any issues.</p>
+      <form id="feedback-form">
+        <input name="name" type="text" placeholder="Your Name (Optional)" id="feedback-name" />
+        <input name="email" type="email" placeholder="Your Email (Optional)" id="feedback-email" />
+        <textarea name="feedback" placeholder="Your Feedback..." rows="8" required></textarea>
+        <button type="submit">Send Feedback</button>
+      </form>
+      <p id="feedback-msg"></p>
+    </section>
+
+    <!-- SUGGEST QUESTION PAGE -->
+    <section id="suggest-question-page" class="page">
+      <h2>Suggest a Question</h2>
+      <p style="color: #666; margin-bottom: 15px;">Have a great question idea? Share it with us and we'll review it for adding to our question bank!</p>
+      <form id="suggest-question-form">
+        <input name="name" type="text" placeholder="Your Name (Optional)" id="suggest-name" />
+        <input name="email" type="email" placeholder="Your Email (Optional)" id="suggest-email" />
+        <textarea name="question" placeholder="Question Text *" rows="4" required></textarea>
+        
+        <select name="category" id="suggest-category">
+          <option value="">Select Category (Optional)</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="devops">DevOps</option>
+          <option value="testing">Testing</option>
+          <option value="general">General</option>
+        </select>
+        
+        <select name="difficulty" id="suggest-difficulty">
+          <option value="">Select Difficulty (Optional)</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        
+        <select name="type" id="suggest-question-type">
+          <option value="">Select Type (Optional)</option>
+          <option value="mcq">MCQ</option>
+          <option value="descriptive">Descriptive</option>
+        </select>
+        
+        <!-- MCQ Fields -->
+        <div id="suggest-mcq-fields" style="display: none;">
+          <div id="suggest-mcq-options-container">
+            <div class="mcq-option">
+              <input type="text" class="suggest-mcq-option-input" placeholder="Option 1">
+              <label><input type="radio" name="suggest-correct-option" value="0"> Correct</label>
+            </div>
+            <div class="mcq-option">
+              <input type="text" class="suggest-mcq-option-input" placeholder="Option 2">
+              <label><input type="radio" name="suggest-correct-option" value="1"> Correct</label>
+            </div>
+          </div>
+          <button type="button" id="suggest-add-option-btn" style="margin-top: 10px; background: #059669; width: auto;">Add Option</button>
+        </div>
+        
+        <!-- Descriptive Answer Field -->
+        <div id="suggest-descriptive-field" style="display: none;">
+          <textarea name="correctAnswer" placeholder="Correct Answer (Optional)" rows="4"></textarea>
+        </div>
+        
+        <textarea name="additionalNotes" placeholder="Additional Notes (Optional)" rows="3"></textarea>
+        
+        <button type="submit">Submit Question Suggestion</button>
+      </form>
+      <p id="suggest-question-msg"></p>
+    </section>
+
+    <!-- ADMIN RESULTS -->
+    <section id="admin-results-page" class="page">
+      <h2>Admin Results</h2>
+      <p id="admin-check-msg"></p>
+      <button id="fetch-results-btn">Fetch All Results</button>
+      <div id="admin-results"></div>
+    </section>
+
+    <!-- ADMIN ADD QUESTION -->
+    <section id="admin-add-page" class="page">
+      <h2>Add Question</h2>
+      <p id="admin-add-check-msg"></p>
+      <form id="add-form">
+        <select name="category" required>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="devops">DevOps</option>
+          <option value="testing">Testing</option>
+          <option value="general">General</option>
+        </select>
+        <select name="difficulty" required>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select name="type" id="question-type" required>
+          <option value="descriptive">Descriptive</option>
+          <option value="mcq">MCQ (Multiple Choice)</option>
+        </select>
+        <textarea name="question" placeholder="Question Text" required></textarea>
+        
+        <!-- Descriptive Question Fields -->
+        <div id="descriptive-fields">
+          <textarea name="correctAnswer" placeholder="Correct Answer (for descriptive questions)" id="correct-answer-field"></textarea>
+        </div>
+        
+        <!-- MCQ Question Fields -->
+        <div id="mcq-fields" style="display: none;">
+          <div id="mcq-options-container">
+            <div class="mcq-option">
+              <input type="text" class="mcq-option-input" placeholder="Option 1" required>
+              <label><input type="radio" name="correct-option" value="0" required> Correct</label>
+            </div>
+            <div class="mcq-option">
+              <input type="text" class="mcq-option-input" placeholder="Option 2" required>
+              <label><input type="radio" name="correct-option" value="1"> Correct</label>
+            </div>
+          </div>
+          <button type="button" id="add-option-btn" style="margin-top: 10px; background: #059669;">Add Option</button>
+        </div>
+        
+        <button type="submit">Add Question</button>
+      </form>
+      <p id="add-msg"></p>
+    </section>
+
+  </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-intro">
+        <h3>About Developer</h3>
+        <p><strong>Aryan</strong></p>
+        <p>Full Stack Developer & AI Enthusiast</p>
+        <p>Building innovative solutions with modern technologies</p>
+      </div>
+      <div class="footer-info">
+        <p>Interview Platform © 2025</p>
+        <p>Powered by AI Technology</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
