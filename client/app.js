@@ -1,4 +1,4 @@
-const BASE = "http://localhost:5000/api";
+const BASE = "http://localhost:5000/api"  || "https://interview-preparation-1.onrender.com";
 let token = localStorage.getItem("token");
 let currentUser = null;
 
