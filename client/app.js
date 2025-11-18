@@ -160,7 +160,7 @@ document.querySelector("#login-form").onsubmit = async (e) => {
   const email = e.target.email.value;
   const password = e.target.password.value;
 
-  const res = await fetch(`${BASE}/auth/login`, {
+  const res = await fetch(`${BASE}/api/auth/login`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ email, password })
@@ -195,7 +195,7 @@ document.querySelector("#register-form").onsubmit = async (e) => {
   const email = e.target.email.value;
   const password = e.target.password.value;
 
-  const res = await fetch(`${BASE}/auth/register`, {
+  const res = await fetch(`${BASE}/api/auth/register`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ name, email, password })
@@ -219,7 +219,7 @@ document.querySelector("#forgot-password-form").onsubmit = async (e) => {
   e.preventDefault();
   const email = e.target.email.value;
 
-  const res = await fetch(`${BASE}/auth/forgot-password`, {
+  const res = await fetch(`${BASE}/api/auth/forgot-password`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ email })
@@ -255,7 +255,7 @@ document.querySelector("#reset-password-form").onsubmit = async (e) => {
   const token = e.target.token.value;
   const password = e.target.password.value;
 
-  const res = await fetch(`${BASE}/auth/reset-password`, {
+  const res = await fetch(`${BASE}/api/auth/reset-password`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ token, password })
@@ -287,7 +287,7 @@ document.querySelector("#change-password-form").onsubmit = async (e) => {
     return;
   }
 
-  const res = await fetch(`${BASE}/auth/change-password`, {
+  const res = await fetch(`${BASE}/api/auth/change-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -326,7 +326,7 @@ document.querySelector("#start-form").onsubmit = async (e) => {
     questionType: questionType
   };
 
-  const res = await fetch(`${BASE}/interview/start`, {
+  const res = await fetch(`${BASE}/api/interview/start`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -469,7 +469,7 @@ document.querySelector("#submit-all-btn").onclick = async (e) => {
   };
 
   try {
-    const res = await fetch(`${BASE}/interview/submit`, {
+    const res = await fetch(`${BASE}/api/interview/submit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -510,7 +510,7 @@ document.querySelector("#plagiarism-form").onsubmit = async (e) => {
     return;
   }
 
-  const res = await fetch(`${BASE}/plagiarism/check`, {
+  const res = await fetch(`${BASE}/api/plagiarism/check`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -540,7 +540,7 @@ document.querySelector("#fetch-results-btn").onclick = async () => {
     return;
   }
 
-  const res = await fetch(`${BASE}/admin/results`, {
+  const res = await fetch(`${BASE}/api/admin/results`, {
     method: "GET",
     headers: {
       "Authorization": "Bearer " + token
@@ -653,7 +653,7 @@ document.querySelector("#add-form").onsubmit = async (e) => {
     }
   }
 
-  const res = await fetch(`${BASE}/questions/add`, {
+  const res = await fetch(`${BASE}/api/questions/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -726,7 +726,7 @@ document.querySelector("#feedback-form").onsubmit = async (e) => {
   }
 
   try {
-    const res = await fetch(`${BASE}/feedback/submit`, {
+    const res = await fetch(`${BASE}/api/feedback/submit`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body)
@@ -839,7 +839,7 @@ document.querySelector("#suggest-question-form").onsubmit = async (e) => {
   }
 
   try {
-    const res = await fetch(`${BASE}/feedback/question-suggestion`, {
+    const res = await fetch(`${BASE}/api/feedback/question-suggestion`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body)
