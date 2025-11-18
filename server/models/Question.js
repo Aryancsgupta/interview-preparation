@@ -1,41 +1,102 @@
-// server/models/Question.js
+// // server/models/Question.js
+// import mongoose from "mongoose";
+
+// const questionSchema = new mongoose.Schema({
+//   question: { 
+//     type: String, 
+//     required: true,
+//     trim: true 
+//   },
+//   category: { 
+//     type: String, 
+//     required: true,
+//     enum: ['frontend', 'backend', 'devops', 'testing', 'general'] 
+//   },
+//   difficulty: { 
+//     type: String, 
+//     required: true,
+//     enum: ['easy', 'medium', 'hard'] 
+//   },
+//   type: {
+//     type: String,
+//     enum: ['descriptive', 'mcq'],
+//     default: 'descriptive'
+//   },
+//   correctAnswer: { // For descriptive questions and MCQ correct option
+//     type: String, 
+//     required: true,
+//   },
+//   // MCQ specific fields
+//   options: {
+//     type: [String], // Array of options for MCQ
+//     default: []
+//   },
+//   correctOptionIndex: { // Index of correct option (0-based) for MCQ
+//     type: Number,
+//     default: -1
+//   }
+// }, { timestamps: true });
+
+// const Question = mongoose.model("Question", questionSchema);
+// export default Question;
 import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema({
-  question: { 
-    type: String, 
+
+  question: {
+    type: String,
     required: true,
-    trim: true 
+    trim: true
   },
-  category: { 
-    type: String, 
+
+  category: {
+    type: String,
     required: true,
-    enum: ['frontend', 'backend', 'devops', 'testing', 'general'] 
+    enum: [
+      "frontend",
+      "backend",
+      "devops",
+      "testing",
+      "general",
+      "dsa",
+      "java",
+      "ml",
+      "system-design",
+      "webdev"
+    ]
   },
-  difficulty: { 
-    type: String, 
+
+  difficulty: {
+    type: String,
     required: true,
-    enum: ['easy', 'medium', 'hard'] 
+    enum: ["easy", "medium", "hard"]
   },
+
   type: {
     type: String,
-    enum: ['descriptive', 'mcq'],
-    default: 'descriptive'
+    enum: ["descriptive", "mcq"],
+    default: "descriptive"
   },
-  correctAnswer: { // For descriptive questions and MCQ correct option
-    type: String, 
-    required: true,
+
+  // Descriptive correct answer
+  correctAnswer: {
+    type: String,
+    required: function () {
+      return this.type === "descriptive";
+    }
   },
-  // MCQ specific fields
+
+  // MCQ Options
   options: {
-    type: [String], // Array of options for MCQ
+    type: [String],
     default: []
   },
-  correctOptionIndex: { // Index of correct option (0-based) for MCQ
+
+  correctOptionIndex: {
     type: Number,
     default: -1
   }
+
 }, { timestamps: true });
 
-const Question = mongoose.model("Question", questionSchema);
-export default Question;
+export default mongoose.model("Question", questionSchema);
