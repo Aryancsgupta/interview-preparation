@@ -21,7 +21,9 @@ const app = express();
 
 // Middleware
 app.use(cors({ 
-    origin: [  process.env.CLIENT_URL, 'https://interview-preparation-ten.vercel.app/'],
+    origin: [  process.env.CLIENT_URL, 'https://interview-preparation-ten.vercel.app',
+                'https://interview-preparation-1.onrender.com'
+    ],
     credentials: true 
 }));
 app.use(express.json());
