@@ -81,7 +81,7 @@ body {
   border-radius: 50%;
   border: 2px solid var(--border-color);
   background: var(--bg-secondary);
-  color: var(hsl(210, 82%, 48%));
+  color: var(--text-dark);
   cursor: pointer;
   display: flex;
   align-items: center;
